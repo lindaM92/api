@@ -53,6 +53,10 @@
 
           const result = await response.json();
           alert(result.message);
+
+          // Limpiar los campos del formulario
+          document.getElementById("registerUsername").value = "";
+          document.getElementById("registerPassword").value = "";
         });
 
       document
@@ -70,6 +74,10 @@
 
           const result = await response.json();
           alert(result.message);
+
+          // Limpiar los campos del formulario 
+          document.getElementById("loginUsername").value = "";
+          document.getElementById("loginPassword").value = "";
         });
     </script>
   </body>
