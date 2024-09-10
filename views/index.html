@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registro e Inicio de Sesión</title>
+  </head>
+  <body>
+    <h1>Registro de Usuario</h1>
+    <form id="registerForm">
+      <input type="text" id="registerUsername" placeholder="Usuario" required />
+      <input
+        type="password"
+        id="registerPassword"
+        placeholder="Contraseña"
+        required
+      />
+      <button type="submit">Registrar</button>
+    </form>
+
+    <h1>Inicio de Sesión</h1>
+    <form id="loginForm">
+      <input type="text" id="loginUsername" placeholder="Usuario" required />
+      <input
+        type="password"
+        id="loginPassword"
+        placeholder="Contraseña"
+        required
+      />
+      <button type="submit">Iniciar Sesión</button>
+    </form>
+
+    <script>
+      // agrega un evento al formulario de registro para manejar el envío de los datos
+      document
+        .getElementById("registerForm")
+        .addEventListener("submit", async (e) => {
+          //para evitar que la pagina se este recargando
+          e.preventDefault();
+
+          // Obtiene el valor del campo de usuario del formulario de registro
+          const username = document.getElementById("registerUsername").value;
+          const password = document.getElementById("registerPassword").value;
+
+          // Envía una solicitud POST al endpoint '/register' con los datos del formulario
+          const response = await fetch("/register", {
+            method: "POST", // Método HTTP para enviar datos
+            headers: { "Content-Type": "application/json" },
+            // envio de datos en formato JSON
+            body: JSON.stringify({ username, password }),
+          });
+
+          const result = await response.json();
+          alert(result.message);
+        });
+
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const username = document.getElementById("loginUsername").value;
+          const password = document.getElementById("loginPassword").value;
+
+          const response = await fetch("/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, password }),
+          });
+
+          const result = await response.json();
+          alert(result.message);
+        });
+    </script>
+  </body>
+</html>
